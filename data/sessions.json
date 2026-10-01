@@ -216,7 +216,7 @@
     "tag": "AI Testing",
     "title": "AS-IS vs TO-BE 소스 AI에게 1:1 테스트 맡기기",
     "subtitle": "고려대학교의 제한된 환경에서 소스만으로 비교해본 후기",
-    "speaker": "구증근 과장",
+    "speaker": "구중근 과장",
     "folder": "https://metanet-my.sharepoint.com/personal/registry_metanet_co_kr/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fregistry_metanet_co_kr%2FDocuments%2FE4U%2F8.Unit_%EC%A0%84%EC%B2%B4_%EA%B3%B5%EC%9C%A0%2F03.TechByte10%2F20260804_%EA%B5%AC%EC%A4%91%EA%B7%BC_28%ED%9A%8C%EC%B0%A8_AS-IS%20vs%20TO-BE%20%EC%86%8C%EC%8A%A4%20AI%EC%97%90%EA%B2%8C%201%EB%8C%801%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EB%A7%A1%EA%B8%B0%EA%B8%B0"
   },
   {
@@ -226,6 +226,13 @@
     "subtitle": "SDD 기반 레거시 UI/UX 분석부터 전환 방법론 및 실제 개발 방식 공유",
     "speaker": "정봉경 대리",
     "folder": "https://metanet-my.sharepoint.com/personal/registry_metanet_co_kr/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fregistry_metanet_co_kr%2FDocuments%2FE4U%2F8.Unit_%EC%A0%84%EC%B2%B4_%EA%B3%B5%EC%9C%A0%2F03.TechByte10%2F20260908_%EC%A0%95%EB%B4%89%EA%B2%BD_29%ED%9A%8C%EC%B0%A8_%EC%95%84%EC%A3%BC%EB%8C%80%20UIUX%20%EC%A0%84%ED%99%98%EB%B0%A9%EB%B2%95%EB%A1%A0%20%EC%88%98%EB%A6%BD%20%EC%A7%84%ED%96%89%20%ED%98%84%ED%99%A9"
+  },
+  {
+    "date": "2026-09-14",
+    "tag": "Special Session",
+    "title": "E4U 하네스 적용 사례",
+    "speaker": "정봉경 대리, 이재우 대리",
+    "folder": "https://metanet-my.sharepoint.com/personal/registry_metanet_co_kr/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fregistry_metanet_co_kr%2FDocuments%2FE4U%2F8.Unit_%EC%A0%84%EC%B2%B4_%EA%B3%B5%EC%9C%A0%2F03.TechByte10%2F20260914_%EC%A0%95%EB%B4%89%EA%B2%BD_%EC%9D%B4%EC%9E%AC%EC%9A%B0_E4U_%ED%95%98%EB%84%A4%EC%8A%A4_%EC%A0%81%EC%9A%A9_%EC%82%AC%EB%A1%80"
   },
   {
     "date": "2026-10-13",
