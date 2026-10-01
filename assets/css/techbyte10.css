@@ -7,6 +7,12 @@
     --border-refined: rgba(29, 25, 22, 0.1);
     --transition-elegant: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
     --max-width: 1100px;
+
+    /* 세션 상태 색상 */
+    --status-completed: #5E7D63;
+    --status-completed-bg: rgba(94, 125, 99, 0.1);
+    --status-upcoming: #C66B44;
+    --status-upcoming-bg: rgba(198, 107, 68, 0.1);
 }
 
 * {
@@ -192,6 +198,24 @@ h4,
     background-color: var(--text-primary);
     color: var(--bg-page);
     border-color: var(--text-primary);
+}
+
+/* 세션 상태별 색상 */
+.session-indicator.is-completed {
+    color: var(--status-completed);
+    background-color: var(--status-completed-bg);
+    border-color: rgba(94, 125, 99, 0.35);
+}
+
+.session-indicator.is-upcoming {
+    color: var(--status-upcoming);
+    background-color: var(--status-upcoming-bg);
+    border-color: var(--status-upcoming);
+}
+
+.session-indicator.is-cancelled {
+    color: var(--text-meta);
+    text-decoration: line-through;
 }
 
 /* OneDrive 세션 자료 폴더 링크 */

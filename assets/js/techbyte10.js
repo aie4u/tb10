@@ -90,6 +90,7 @@ function renderSession(session, today) {
 
     const status = resolveStatus(session, today);
     const indicator = el('div', 'session-indicator', status);
+    indicator.classList.add(`is-${status.toLowerCase()}`);
     if (status === 'Today') indicator.classList.add('live');
     row.append(indicator);
 
