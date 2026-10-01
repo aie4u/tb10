@@ -3,65 +3,88 @@
 ## Overview
 
 Metanet DL E4U의 사내 지식 공유 세션 **Tech Byte 10** 소개·일정 페이지입니다.
-운영 중인 `http://52.78.195.223/techbyte10.html`을 Git 기반으로 옮긴 것으로, 화면과 동작은 원본과 동일합니다.
+기존 `http://52.78.195.223/techbyte10.html`의 화면과 콘텐츠를 그대로 옮겨 **GitHub Pages**로 호스팅합니다. 기존 서버는 사용하지 않습니다.
+
+- 사이트: https://aie4u.github.io/tb10/
+- 미팅 일정: [`data/sessions.json`](data/sessions.json) 파일 하나만 수정하면 반영됩니다.
+
+## 미팅 일정 업데이트 방법
+
+### GitHub 웹에서 (가장 간단)
+
+1. Repository에서 `data/sessions.json` 열기 → 연필(✏️) 아이콘 클릭
+2. 배열 맨 끝에 세션 추가 (앞 항목 뒤에 쉼표 `,` 필수)
+3. **Commit changes** → 1~2분 뒤 사이트 반영 (Actions 탭에서 진행 상황 확인)
+
+### 세션 항목 형식
+
+```json
+{
+  "date": "2026-10-20",
+  "tag": "AI Coding",
+  "title": "세션 제목",
+  "subtitle": "부제 (없으면 이 줄 삭제)",
+  "speaker": "홍길동 대리"
+}
+```
+
+| 항목 | 필수 | 설명 |
+|---|---|---|
+| `date` | ✅ | `YYYY-MM-DD`. 화면에는 `10. 20 (화)`처럼 요일까지 자동 표시 |
+| `tag` | ✅ | 제목 위 주황색 분류 라벨 |
+| `title` | ✅ | 세션 제목 |
+| `speaker` | ✅ | 발표자 + 직급 |
+| `subtitle` |  | 부제. 화면에 `부제: ...`로 표시 |
+| `time` |  | 시간 (예: `12:50 - 13:00`) |
+| `link` |  | 클릭 시 이동할 발표자료 URL |
+| `status` |  | 상태 강제 지정: `Completed` / `Upcoming` / `Today` / `Cancelled` |
+
+- **상태(Completed/Upcoming)는 날짜로 자동 표시**됩니다 (한국 시간 기준 지난 날짜 → Completed, 당일 → Today, 이후 → Upcoming). 일정이 취소되거나 연기된 경우만 `status`를 직접 넣으세요.
+- 순서는 날짜순으로 자동 정렬되므로 파일 내 위치는 상관없습니다.
+- 형식이 잘못되면 배포 단계에서 검사가 실패하고, 기존 사이트는 그대로 유지됩니다.
 
 ## Architecture
 
-- 단일 정적 페이지 (HTML5 + CSS3 + Vanilla JS), 빌드 단계 없음
-- 외부 리소스: Google Fonts(Fraunces, Inter), Lucide 아이콘(unpkg CDN)
-- 상세 분석: [docs/site-analysis.md](docs/site-analysis.md)
-
 ```text
-GitHub (main) → GitHub Actions (CI → Deploy) → rsync/SSH → 52.78.195.223 웹서버
+data/sessions.json 수정 → main push
+→ GitHub Actions (JSON 검사 · HTML lint → GitHub Pages 배포 → Health check)
+→ https://aie4u.github.io/tb10/
 ```
 
-## Requirements
-
-- 최신 브라우저
-- (선택) 로컬 미리보기용 Python 3 또는 Node.js
+- HTML5 + CSS3 + Vanilla JS, 빌드 도구 없음
+- 외부 리소스: Google Fonts(Fraunces, Inter), Lucide 아이콘(unpkg CDN)
+- 원본 분석: [docs/site-analysis.md](docs/site-analysis.md)
 
 ## Local Development
+
+`fetch`로 JSON을 읽기 때문에 파일을 직접 열면(file://) 일정이 보이지 않습니다. 간단한 로컬 서버로 확인하세요.
 
 ```bash
 git clone https://github.com/aie4u/tb10.git
 cd tb10
-python3 -m http.server 8080
-# http://localhost:8080/techbyte10.html
+python3 -m http.server 8080        # http://localhost:8080
+node scripts/validate-sessions.mjs # 일정 데이터 형식 검사
 ```
 
-`techbyte10.html`을 브라우저로 바로 열어도 동작합니다.
+## GitHub Pages 최초 설정 (1회)
 
-## Build
-
-빌드 과정이 없습니다. Repository 파일이 그대로 배포됩니다.
-
-## Deployment
-
-[docs/deployment.md](docs/deployment.md) 참고. 요약:
-
-1. 서버 DocumentRoot·배포 계정 확인
-2. GitHub `production` Environment에 Secrets 등록
-3. Actions → **Deploy** → Run workflow
+Repository → **Settings → Pages → Build and deployment → Source: GitHub Actions** 선택
 
 ## GitHub Actions
 
 | Workflow | 트리거 | 내용 |
 |---|---|---|
-| `ci.yml` | PR, main push | htmlhint 검사, 로컬 asset 참조 확인 |
-| `deploy.yml` | 수동 실행 (서버 확인 후 main push로 전환) | 서버 백업 → rsync → Health check |
+| `ci.yml` | Pull Request | sessions.json 검사, HTML lint |
+| `pages.yml` | main push, 수동 | 검사 → Pages 배포 → Health check |
 
-## Environment Variables
+## Rollback
 
-| 이름 | 종류 | 설명 |
-|---|---|---|
-| `DEPLOY_HOST` | Secret | 운영 서버 주소 |
-| `DEPLOY_PORT` | Secret | SSH 포트 |
-| `DEPLOY_USER` | Secret | 배포 계정 |
-| `DEPLOY_PATH` | Secret | 웹서버 DocumentRoot |
-| `DEPLOY_SSH_KEY` | Secret | 배포용 SSH 개인키 |
-| `HEALTHCHECK_URL` | Variable | 배포 후 확인할 URL |
+```bash
+git revert <문제 commit>
+git push origin main
+```
 
-민감정보는 Repository에 커밋하지 않습니다.
+또는 GitHub 웹에서 이전 버전의 `data/sessions.json` 내용을 붙여넣어 커밋합니다.
 
 ## Directory Structure
 
@@ -69,43 +92,24 @@ python3 -m http.server 8080
 tb10/
 ├── .github/workflows/
 │   ├── ci.yml
-│   └── deploy.yml
+│   └── pages.yml
 ├── assets/
 │   ├── css/techbyte10.css
-│   └── js/techbyte10.js
-├── docs/
-│   ├── deployment.md
-│   └── site-analysis.md
-├── techbyte10.html
+│   └── js/techbyte10.js      # sessions.json 읽어 일정 렌더링
+├── data/
+│   └── sessions.json         # ← 미팅 일정
+├── docs/site-analysis.md
+├── scripts/validate-sessions.mjs
+├── index.html
 ├── CLAUDE.md
 └── README.md
-```
-
-## 세션 추가 방법
-
-`techbyte10.html`의 `.schedule-list` 마지막에 `session-row` 블록을 복사해 추가하고, 지난 세션의 `session-indicator`를 `Completed`로 바꿉니다.
-
-```html
-<!-- Session N -->
-<div class="session-row" data-reveal>
-    <div class="session-date">MM. DD (요일)</div>
-    <div class="session-main">
-        <span class="session-tag">Tag</span>
-        <h4>제목</h4>
-        <p>부제: ...</p>
-        <div class="session-meta">
-            <span><i data-lucide="user" size="14"></i> 발표자 직급</span>
-        </div>
-    </div>
-    <div class="session-indicator">Upcoming</div>
-</div>
 ```
 
 ## Troubleshooting
 
 | 증상 | 확인 |
 |---|---|
-| 아이콘이 안 보임 | unpkg CDN 접근 가능 여부, `lucide@latest` 버전 변경 여부 |
-| 콘텐츠가 보이지 않음 | JS 로드 실패 시 `[data-reveal]` 요소가 opacity 0으로 남음. `assets/js` 경로 확인 |
-| 배포 후 CSS 미적용 | 서버 `assets/` 경로 권한·SELinux 컨텍스트 확인 |
-| Deploy 실패 | Secrets 값, 서버의 `authorized_keys`, 방화벽(SSH 포트) 확인 |
+| "일정을 불러오지 못했습니다" | `data/sessions.json` JSON 문법(쉼표, 따옴표), Actions 실패 여부 |
+| 수정했는데 반영 안 됨 | Actions 탭에서 `Deploy to GitHub Pages` 실패 여부, 브라우저 강력 새로고침 |
+| 아이콘이 안 보임 | unpkg CDN 접근 가능 여부 |
+| 404 | Settings → Pages Source가 GitHub Actions인지 확인 |

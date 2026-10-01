@@ -281,3 +281,10 @@ footer {
         font-size: 3.5rem;
     }
 }
+
+/* Schedule load error */
+.schedule-error {
+    padding: 2.5rem 0;
+    text-align: center;
+    color: var(--text-meta);
+}

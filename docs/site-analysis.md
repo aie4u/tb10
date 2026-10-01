@@ -54,16 +54,23 @@ header, nav, modal, iframe, table, form, button 요소는 없습니다.
 
 ## 5. 재구성 결정
 
+- 호스팅: 기존 서버를 사용하지 않고 **GitHub Pages**로 이전 (화면에 보이는 콘텐츠만 이관)
 - 기술 스택: **HTML + CSS + Vanilla JS 유지** (빌드 도구 불필요)
-- 변경 사항: 인라인 CSS/JS를 `assets/css/techbyte10.css`, `assets/js/techbyte10.js`로 분리
-- 마크업·스타일 값은 원본과 동일 (공백을 제외하고 비교했을 때 body와 CSS 모두 일치 확인)
+- 인라인 CSS/JS를 `assets/css/techbyte10.css`, `assets/js/techbyte10.js`로 분리 (CSS 값은 원본과 동일)
+- 하드코딩된 세션 30개를 `data/sessions.json`으로 분리하고 JS로 렌더링
+  - 날짜는 `YYYY-MM-DD`로 저장하고 `MM. DD (요일)` 표시는 자동 생성 (원본 30건 요일 일치 확인)
+  - Completed/Upcoming은 날짜 기준 자동 판정 (`status`로 수동 지정 가능)
+  - 당일 세션은 원본에 정의만 되어 있던 `.session-indicator.live` 스타일로 `Today` 표시
+- 원본과의 차이
+  - `techbyte10.html` → `index.html`
+  - Session 29 부제 표기 `부제 : ` → `부제: `로 통일
+  - Session 4 링크는 원본 URL(52.78.195.223의 발표자료)을 그대로 유지
 
 ## 6. 개선 후보 (미적용, 별도 결정 필요)
 
 | 항목 | 내용 |
 |---|---|
 | Lucide 버전 고정 | `lucide@latest`는 신규 릴리스 시 동작이 바뀔 수 있음. `lucide@<버전>`으로 고정 권장 |
-| 세션 데이터 분리 | 세션 30개가 HTML에 반복 하드코딩되어 있음. 세션 추가가 잦으면 JSON + 렌더링 방식 검토 |
-| 접근성 | 아이콘 `<i>`에 `aria-hidden`이 없음, Session 4 링크 외 세션은 키보드 포커스 대상이 아님 |
-| 절대 URL | Session 4 링크가 IP 절대경로라 도메인이 바뀌면 깨짐. 상대경로 `/techbyte10/...`로 변경 가능 |
-| no-cache meta | `http-equiv` 캐시 meta는 대부분 브라우저가 무시함. 서버 헤더로 제어 권장 |
+| Session 4 발표자료 | 기존 서버의 HTML을 가리킴. 서버를 정리할 경우 자료를 이 repo로 옮기고 link 수정 필요 |
+| 접근성 | 아이콘 `<i>`에 `aria-hidden`이 없음, 링크 없는 세션은 키보드 포커스 대상이 아님 |
+| no-cache meta | `http-equiv` 캐시 meta는 대부분 브라우저가 무시함 |

@@ -1,0 +1,209 @@
+[
+  {
+    "date": "2026-02-05",
+    "tag": "Open Session",
+    "title": "VS Code + Claude를 활용한 통합테스트 설계서 작성 사례",
+    "speaker": "문태준 이사",
+    "time": "12:50 - 13:00"
+  },
+  {
+    "date": "2026-02-06",
+    "tag": "Configuration",
+    "title": "Claude 기본 세팅 사례 (Claude.md, Skills)",
+    "speaker": "최준혁 대리"
+  },
+  {
+    "date": "2026-02-11",
+    "tag": "API Authentication",
+    "title": "솔루션 API 인증 사례",
+    "speaker": "이상린 과장"
+  },
+  {
+    "date": "2026-02-24",
+    "tag": "AI Design",
+    "title": "Google Antigravity를 이용한 웹페이지 제작 사례",
+    "speaker": "안지현 상무",
+    "link": "http://52.78.195.223/techbyte10/20260224_4th_presentation.html"
+  },
+  {
+    "date": "2026-02-26",
+    "tag": "Modernization",
+    "title": "PowerBuilder 화면의 Vue 전환",
+    "subtitle": "VS Code + Claude Code 활용 사례",
+    "speaker": "이지희 이사"
+  },
+  {
+    "date": "2026-03-10",
+    "tag": "Modernization",
+    "title": "Nexacro 화면을 Vue로 바꿔보자",
+    "subtitle": "케이스별(반응형 / 모바일) 화면 변환 프롬프트 작성 및 실행",
+    "speaker": "유국화 대리"
+  },
+  {
+    "date": "2026-03-17",
+    "tag": "Automation",
+    "title": "Claude + n8n 연동",
+    "subtitle": "워크플로우 완성하기",
+    "speaker": "김우경 대리"
+  },
+  {
+    "date": "2026-03-24",
+    "tag": "Planning",
+    "title": "Claude의 Plan Mode 활용법",
+    "subtitle": "코딩하기 전에 계획하라",
+    "speaker": "이소정 대리"
+  },
+  {
+    "date": "2026-03-31",
+    "tag": "AI OpenSource",
+    "title": "OpenClaw, 24시간 무급 비서 고용 후기",
+    "subtitle": "큰 힘에는 큰 책임이 따른다",
+    "speaker": "송현아 대리"
+  },
+  {
+    "date": "2026-04-07",
+    "tag": "IDE Support",
+    "title": "Claude + IntelliJ MCP 연결한 개발 가이드",
+    "subtitle": "복사도 안되는 좁은 화면에서 Claude 사용하실 껀가요?",
+    "speaker": "정효재 대리"
+  },
+  {
+    "date": "2026-04-14",
+    "tag": "DevOps",
+    "title": "gitlab+IntelliJ+Claude 연동 가이드",
+    "subtitle": "형상관리도 Claude와 함께",
+    "speaker": "서진휘 대리"
+  },
+  {
+    "date": "2026-04-21",
+    "tag": "AI Coding",
+    "title": "Claude Code로 바이브 코딩하기",
+    "subtitle": "Vue.js 화면생성기",
+    "speaker": "하승석 차장"
+  },
+  {
+    "date": "2026-04-28",
+    "tag": "AI Collaboration",
+    "title": "Claude에서 agent team과 subagent 활용하는 방법",
+    "subtitle": "agent 팀원 관리하기",
+    "speaker": "최영선 이사"
+  },
+  {
+    "date": "2026-05-12",
+    "tag": "Automation",
+    "title": "Claude Cowork 활용 방법",
+    "subtitle": "폴더 하나로 시작하는 업무 자동화",
+    "speaker": "이재우 대리"
+  },
+  {
+    "date": "2026-05-19",
+    "tag": "IDE Support",
+    "title": "IntelliJ 설치 및 다른 IDE와 기능 비교",
+    "subtitle": "Cursor vs. VSCode vs. IntelliJ",
+    "speaker": "유병민 차장"
+  },
+  {
+    "date": "2026-05-26",
+    "tag": "Framework",
+    "title": "하네스 엔지니어링 기반 Vue 전환",
+    "subtitle": "하네스 엔지니어링을 적용한 레거시 UI의 Vue 변환 작업",
+    "speaker": "박지성 차장"
+  },
+  {
+    "date": "2026-05-28",
+    "tag": "AI Workspace",
+    "title": "내 AI 작업환경을 들고 다니기",
+    "subtitle": "/remote-control로 사무실 PC의 옵시디언·AI 세션을 모바일에서 활용하기",
+    "speaker": "이남기 차장"
+  },
+  {
+    "date": "2026-06-02",
+    "tag": "AI Coding",
+    "title": "Agent View로 AI 세션 한눈에 관리하기",
+    "subtitle": "AI 한테 일을 시켰더니, 내가 매니저가 됐다",
+    "speaker": "이서현 대리"
+  },
+  {
+    "date": "2026-06-09",
+    "tag": "IDE Support",
+    "title": "IntelliJ 120% 활용",
+    "subtitle": "IntelliJ 플러그인으로 튜닝하기",
+    "speaker": "이창현 부장"
+  },
+  {
+    "date": "2026-06-11",
+    "tag": "Automation",
+    "title": "Claude Code × Playwright MCP로 E2E 테스트 자동화하기",
+    "subtitle": "MCP 설정부터 시나리오 자동 생성 SKILL, 개발·검증 프로세스 가이드",
+    "speaker": "정봉경 대리"
+  },
+  {
+    "date": "2026-06-16",
+    "tag": "Standards",
+    "title": "E4U Claude 표준 이해 심화",
+    "subtitle": "agent, skill, claude 설정 표준 및 수정 가이드",
+    "speaker": "최준혁 대리"
+  },
+  {
+    "date": "2026-06-18",
+    "tag": "Automation",
+    "title": "LLM이 관리하는 개인 위키",
+    "subtitle": "AI가 자동 정리하는 업무 지식 베이스 구축 사례 (Obsidian + Claude Code)",
+    "speaker": "윤성훈 대리"
+  },
+  {
+    "date": "2026-06-23",
+    "tag": "Coding Agent",
+    "title": "Coding Agent 분석설계 활용사례",
+    "subtitle": "초보 설계자의 생존일지",
+    "speaker": "이상린 과장"
+  },
+  {
+    "date": "2026-07-07",
+    "tag": "발표 클리닉",
+    "title": "1회 오프닝 - 첫 3초의 침묵이 무대를 만든다",
+    "subtitle": "\"떨리네요, 잘 부탁드립니다\"가 발표를 시작하기도 전에 망치는 이유",
+    "speaker": "안지현 상무"
+  },
+  {
+    "date": "2026-07-14",
+    "tag": "발표 클리닉",
+    "title": "2회 본문 - 슬라이드를 읽지 말고 결론을 말하라",
+    "subtitle": "\"다음 슬라이드로 넘어가겠습니다\" 없이 10분을 끌고 가는 법",
+    "speaker": "안지현 상무"
+  },
+  {
+    "date": "2026-07-21",
+    "tag": "발표 클리닉",
+    "title": "3회 클로징 - 청중은 마지막 한 문장만 기억한다",
+    "subtitle": "\"이상으로 마치겠습니다\"를 버리고 수미상관과 CTA로 끝내는 법",
+    "speaker": "안지현 상무"
+  },
+  {
+    "date": "2026-07-30",
+    "tag": "Methodology",
+    "title": "(AIDD 기반) UI/UX 전환사업 수행 방법론 - AIMS3 사례",
+    "speaker": "장명완 이사"
+  },
+  {
+    "date": "2026-08-04",
+    "tag": "AI Testing",
+    "title": "AS-IS vs TO-BE 소스 AI에게 1:1 테스트 맡기기",
+    "subtitle": "고려대학교의 제한된 환경에서 소스만으로 비교해본 후기",
+    "speaker": "구증근 과장"
+  },
+  {
+    "date": "2026-09-08",
+    "tag": "Methodology",
+    "title": "아주대 UI/UX 전환방법론 수립 진행 현황",
+    "subtitle": "SDD 기반 레거시 UI/UX 분석부터 전환 방법론 및 실제 개발 방식 공유",
+    "speaker": "정봉경 대리"
+  },
+  {
+    "date": "2026-10-13",
+    "tag": "Integration",
+    "title": "사이냅 문서뷰어 연동기 - API호출부터 압축파일 미리보기까지",
+    "subtitle": "문서,이미지,압축파일을 연결하며 마주한 문제와 해결과정 공유",
+    "speaker": "김동선 대리"
+  }
+]

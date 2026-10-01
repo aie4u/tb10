@@ -1,0 +1,72 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate sessions.json
+        run: node scripts/validate-sessions.mjs
+
+      - name: HTML lint
+        run: npx --yes htmlhint@1 "*.html"
+
+      - name: Prepare site
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          cp -r assets data _site/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Health check
+        run: |
+          URL="${{ steps.deployment.outputs.page_url }}"
+          for i in 1 2 3 4 5 6; do
+            ok=1
+            for path in "" "assets/css/techbyte10.css" "assets/js/techbyte10.js" "data/sessions.json"; do
+              code=$(curl -s -o /dev/null -w "%{http_code}" "${URL}${path}")
+              echo "$code ${URL}${path}"
+              [ "$code" = "200" ] || ok=0
+            done
+            [ $ok = 1 ] && exit 0
+            sleep 10
+          done
+          echo "::error::Health check failed"
+          exit 1
