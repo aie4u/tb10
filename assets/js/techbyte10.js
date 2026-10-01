@@ -53,6 +53,22 @@ function metaItem(icon, text) {
     return span;
 }
 
+// OneDrive 세션 폴더(녹화·회의록) 링크
+function folderLink(url) {
+    const a = el('a', 'session-folder');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.setAttribute('aria-label', '세션 자료 폴더 열기 (새 창)');
+    const i = document.createElement('i');
+    i.setAttribute('data-lucide', 'folder-open');
+    i.setAttribute('size', '14');
+    a.append(i, ' 자료');
+    // 발표자료 링크(session-link)로 감싼 행 안에서도 폴더 링크만 열리도록
+    a.addEventListener('click', e => e.stopPropagation());
+    return a;
+}
+
 function renderSession(session, today) {
     const row = el('div', 'session-row');
     row.setAttribute('data-reveal', '');
@@ -68,6 +84,7 @@ function renderSession(session, today) {
     const meta = el('div', 'session-meta');
     meta.append(metaItem('user', session.speaker));
     if (session.time) meta.append(metaItem('clock', session.time));
+    if (session.folder) meta.append(folderLink(session.folder));
     main.append(meta);
     row.append(main);
 

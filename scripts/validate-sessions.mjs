@@ -3,7 +3,7 @@ import { readFileSync, existsSync } from 'node:fs';
 
 const FILE = 'data/sessions.json';
 const REQUIRED = ['date', 'tag', 'title', 'speaker'];
-const OPTIONAL = ['subtitle', 'time', 'link', 'status'];
+const OPTIONAL = ['subtitle', 'time', 'link', 'folder', 'status'];
 const STATUSES = ['Completed', 'Upcoming', 'Today', 'Cancelled'];
 
 let sessions;
@@ -32,6 +32,7 @@ if (!Array.isArray(sessions)) errors.push('최상위는 배열이어야 합니�
     }
     if (s.status && !STATUSES.includes(s.status)) errors.push(`${at}: status는 ${STATUSES.join(', ')} 중 하나`);
     if (s.link && !/^(https?:\/\/|presentations\/)/.test(s.link)) errors.push(`${at}: link는 http(s):// 또는 presentations/ 로 시작해야 함`);
+    if (s.folder && !/^https:\/\//.test(s.folder)) errors.push(`${at}: folder는 https:// 로 시작해야 함`);
     if (s.link?.startsWith('presentations/') && !existsSync(s.link)) errors.push(`${at}: link 파일 없음 (${s.link})`);
 });
 

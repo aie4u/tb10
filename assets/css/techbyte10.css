@@ -164,6 +164,7 @@ h4,
 
 .session-meta {
     display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
     margin-top: 1rem;
     font-size: 0.875rem;
@@ -191,6 +192,21 @@ h4,
     background-color: var(--text-primary);
     color: var(--bg-page);
     border-color: var(--text-primary);
+}
+
+/* OneDrive 세션 자료 폴더 링크 */
+.session-folder {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.session-folder:hover,
+.session-folder:focus-visible {
+    text-decoration: underline;
 }
 
 /* Session 4 link */
