@@ -36,11 +36,12 @@ Metanet DL E4U의 사내 지식 공유 세션 **Tech Byte 10** 소개·일정 �
 | `speaker` | ✅ | 발표자 + 직급 |
 | `subtitle` |  | 부제. 화면에 `부제: ...`로 표시 |
 | `time` |  | 시간 (예: `12:50 - 13:00`) |
-| `link` |  | 클릭 시 이동할 발표자료 URL |
+| `link` |  | 클릭 시 이동할 발표자료. 외부 URL 또는 `presentations/파일명.html` |
 | `status` |  | 상태 강제 지정: `Completed` / `Upcoming` / `Today` / `Cancelled` |
 
 - **상태(Completed/Upcoming)는 날짜로 자동 표시**됩니다 (한국 시간 기준 지난 날짜 → Completed, 당일 → Today, 이후 → Upcoming). 일정이 취소되거나 연기된 경우만 `status`를 직접 넣으세요.
 - 순서는 날짜순으로 자동 정렬되므로 파일 내 위치는 상관없습니다.
+- 발표자료 HTML이 있으면 `presentations/`에 올리고 `link`에 `presentations/파일명.html`을 넣습니다.
 - 형식이 잘못되면 배포 단계에서 검사가 실패하고, 기존 사이트는 그대로 유지됩니다.
 
 ## Architecture
@@ -99,6 +100,7 @@ tb10/
 ├── data/
 │   └── sessions.json         # ← 미팅 일정
 ├── docs/site-analysis.md
+├── presentations/            # 세션 발표자료 (원본 그대로 보관)
 ├── scripts/validate-sessions.mjs
 ├── index.html
 ├── CLAUDE.md

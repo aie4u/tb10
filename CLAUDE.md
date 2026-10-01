@@ -23,6 +23,8 @@ README.md와 관련 파일을 먼저 읽는다.
 - 필수: `date`(YYYY-MM-DD), `tag`, `title`, `speaker` / 선택: `subtitle`, `time`, `link`, `status`
 - `subtitle`에 "부제:" 접두어를 넣지 않는다 (렌더링 시 자동 추가).
 - `status`는 취소·연기 등 예외에만 쓴다. 기본은 날짜 기준 자동 판정.
+- 발표자료는 `presentations/`에 두고 `link`는 `presentations/파일명.html` 상대경로로 건다.
+- `presentations/` 파일은 발표 원본 보관용이다. 인라인 CSS/JS 규칙을 적용하지 않고, 요청 없이 수정하지 않는다.
 - 수정 후 `node scripts/validate-sessions.mjs`로 검사한다.
 
 ## 수정 원칙

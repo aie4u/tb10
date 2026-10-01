@@ -64,13 +64,12 @@ header, nav, modal, iframe, table, form, button 요소는 없습니다.
 - 원본과의 차이
   - `techbyte10.html` → `index.html`
   - Session 29 부제 표기 `부제 : ` → `부제: `로 통일
-  - Session 4 링크는 원본 URL(52.78.195.223의 발표자료)을 그대로 유지
+  - Session 4 발표자료(본문 + 연결된 하위 페이지 3개)를 `presentations/`로 이관하고 링크를 상대경로로 변경. 내용은 원본과 동일 (서버 절대 URL → 상대경로만 변경)
 
 ## 6. 개선 후보 (미적용, 별도 결정 필요)
 
 | 항목 | 내용 |
 |---|---|
 | Lucide 버전 고정 | `lucide@latest`는 신규 릴리스 시 동작이 바뀔 수 있음. `lucide@<버전>`으로 고정 권장 |
-| Session 4 발표자료 | 기존 서버의 HTML을 가리킴. 서버를 정리할 경우 자료를 이 repo로 옮기고 link 수정 필요 |
 | 접근성 | 아이콘 `<i>`에 `aria-hidden`이 없음, 링크 없는 세션은 키보드 포커스 대상이 아님 |
 | no-cache meta | `http-equiv` 캐시 meta는 대부분 브라우저가 무시함 |

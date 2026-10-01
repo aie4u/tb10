@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="웹접근성 자동 개선 프로세스 발표 - TechByte 4th Session">
+    <title>Accessibility Scaled — TechByte Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --brand-primary: #0F172A;
+            /* Slate 900 */
+            --brand-accent: #2563EB;
+            /* Blue 600 */
+            --bg-main: #FFFFFF;
+            --bg-soft: #F8FAFC;
+            --border-light: rgba(226, 232, 240, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--brand-primary);
+            line-height: 1.5;
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
+
+        /* Premium Typography */
+        .heading-massive {
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
+            font-size: clamp(3.5rem, 12vw, 8rem);
+        }
+
+        .heading-section {
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        /* Glassmorphism & Cards */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .premium-card {
+            background: var(--bg-main);
+            border: 1px solid var(--border-light);
+            border-radius: 2rem;
+            padding: 3rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .premium-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.05);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 {
+            transition-delay: 0.1s;
+        }
+
+        .stagger-2 {
+            transition-delay: 0.2s;
+        }
+
+        .stagger-3 {
+            transition-delay: 0.3s;
+        }
+
+        /* Custom Elements */
+        .dot-pattern {
+            background-image: radial-gradient(#E2E8F0 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .step-number {
+            font-weight: 900;
+            font-size: 4rem;
+            opacity: 0.05;
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 16px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        ::selection {
+            background: var(--brand-accent);
+            color: white;
+        }
+
+        /* Accessibility: Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--brand-accent);
+            color: white;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-radius: 0 0 1rem 1rem;
+            font-weight: 700;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+
+<body class="dot-pattern">
+    <a href="#main-content" class="skip-link">Skip to Content</a>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav px-8 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
+                    <div class="w-4 h-4 border-2 border-white rounded-sm rotate-45"></div>
+                </div>
+                <span class="font-black text-xl tracking-tighter">TECHBYTE <span class="font-light text-slate-400">|
+                        ACCESS</span></span>
+            </div>
+            <div class="hidden md:flex items-center space-x-10 text-sm font-bold text-slate-500">
+                <a href="#hero" class="hover:text-slate-900 transition-colors">Start</a>
+                <a href="#workflow" class="hover:text-slate-900 transition-colors">Workflow</a>
+                <a href="#tech" class="hover:text-slate-900 transition-colors">Technology</a>
+                <a href="#deployment" class="hover:text-slate-900 transition-colors">Edge</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-xs font-mono text-slate-400">v4.0.0-PRO</span>
+                <i data-lucide="menu" class="md:hidden w-6 h-6"></i>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex flex-col justify-center px-8 pt-20 overflow-hidden">
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="reveal active stagger-1">
+                    <span class="pill bg-slate-100 text-slate-500 mb-8">Antigravity x Web Quality Intelligence</span>
+                    <h1 class="heading-massive mb-12">Accessibility<br /><span
+                            class="text-slate-400 italic">Scaled.</span></h1>
+                </div>
+                <div class="reveal active stagger-2 max-w-3xl">
+                    <p class="text-2xl md:text-3xl font-light text-slate-500 leading-tight mb-16">
+                        Addy Osmani의 <span class="font-bold text-slate-900">web-quality-skills</span>를 활용한 지능형 접근성 개선 및
+                        무결점 배포 성과 발표.
+                    </p>
+                    <div class="flex flex-wrap gap-12 text-slate-400">
+                        <div>
+                            <span class="block text-[10px] font-black uppercase mb-1 tracking-widest">Date</span>
+                            <span class="text-sm font-bold text-slate-900">2026.02.24</span>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] font-black uppercase mb-1 tracking-widest">Standard</span>
+                            <span class="text-sm font-bold text-slate-900">WCAG 2.1 AA</span>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] font-black uppercase mb-1 tracking-widest">Status</span>
+                            <span class="text-sm font-bold text-blue-600">100% Compliant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                <i data-lucide="chevron-down" class="text-slate-300 w-8 h-8"></i>
+            </div>
+        </section>
+
+        <!-- Workflow Section -->
+        <section id="workflow" class="section-padding bg-slate-50">
+            <div class="max-w-7xl mx-auto">
+                <div class="reveal mb-24">
+                    <h2 class="heading-section mb-6">Execution Flow.</h2>
+                    <p class="text-xl text-slate-500 max-w-2xl">체계적인 3단계 프로세스를 통해 원본 코드의 결함을 완벽하게 해소했습니다.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Phase 1 -->
+                    <div class="premium-card reveal stagger-1 relative overflow-hidden">
+                        <span class="step-number">01</span>
+                        <div
+                            class="w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-10">
+                            <i data-lucide="search" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-2xl font-black mb-4">Deep Audit</h3>
+                        <p class="text-slate-500 mb-8 leading-relaxed">
+                            접근성이 확보되지 않은 원본 파일을 대상으로 WCAG 기준을 적용하여 12건의 크리티컬 이슈를 실시간 탐지했습니다.
+                        </p>
+                        <ul class="space-y-3 mb-10">
+                            <li class="flex items-center space-x-2 text-sm text-slate-600">
+                                <i data-lucide="x" class="w-4 h-4 text-red-500"></i>
+                                <span>이미지 대체 텍스트 누락</span>
+                            </li>
+                            <li class="flex items-center space-x-2 text-sm text-slate-600">
+                                <i data-lucide="x" class="w-4 h-4 text-red-500"></i>
+                                <span>낮은 색상 대비 (Contrast)</span>
+                            </li>
+                        </ul>
+                        <a href="20260224_4th_session.html" target="_blank"
+                            class="inline-flex items-center text-sm font-bold text-red-600 hover:underline">
+                            View Baseline <i data-lucide="external-link" class="ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="premium-card reveal stagger-2 relative bg-slate-900 text-white border-slate-800">
+                        <span class="step-number" style="opacity: 0.1; color: white;">02</span>
+                        <div
+                            class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-10 shadow-lg shadow-blue-500/20">
+                            <i data-lucide="zap" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-2xl font-black mb-4">Skill Application</h3>
+                        <p class="text-slate-400 mb-8 leading-relaxed">
+                            AI 에이전트가 `web-quality-skills` 프로파일을 로드하여 자동으로 semantic 마크업과 ARIA 레이블을 생성 및 주입했습니다.
+                        </p>
+                        <div
+                            class="p-4 bg-slate-800 rounded-xl mb-10 font-mono text-[11px] text-blue-300 border border-slate-700">
+                            &lt;button aria-label="Search"&gt;...&lt;/button&gt;<br />
+                            &lt;img alt="Presentation Slide"...&gt;
+                        </div>
+                        <a href="20260224_4th_web_acessibility.html" target="_blank"
+                            class="inline-flex items-center text-sm font-bold text-blue-400 hover:underline">
+                            Inspect Skill Logic <i data-lucide="external-link" class="ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="premium-card reveal stagger-3 relative overflow-hidden">
+                        <span class="step-number">03</span>
+                        <div
+                            class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-10">
+                            <i data-lucide="globe" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-2xl font-black mb-4">Secure Deployment</h3>
+                        <p class="text-slate-500 mb-8 leading-relaxed">
+                            모든 수정 사항이 포함된 초고품질 HTML을 빌드하여 엣지 서버로 보안 배포(SCP)하여 가용성을 확보했습니다.
+                        </p>
+                        <div class="flex items-center space-x-2 text-emerald-600 font-bold mb-10">
+                            <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+                            <span class="text-xl">Production Live</span>
+                        </div>
+                        <a href="20260224_4th_session_new.html" target="_blank"
+                            class="inline-flex items-center text-sm font-bold text-slate-900 hover:underline">
+                            Experience Final <i data-lucide="external-link" class="ml-2 w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Detail Section -->
+        <section id="tech" class="section-padding">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+                    <div class="reveal">
+                        <h2 class="heading-section mb-10">Advanced Quality.</h2>
+                        <div class="space-y-12">
+                            <div>
+                                <h4 class="text-xl font-black mb-3 text-slate-900 flex items-center">
+                                    <span
+                                        class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs mr-4">A</span>
+                                    Perceivable Solutions
+                                </h4>
+                                <p class="text-slate-500 pl-12">
+                                    스크린 리더의 인지 성능을 위해 랜드마크 요소를 적용하고, 모든 시각 라이브러리(Mermaid, Lucide)에 대한 접근성 호환성을 확보했습니다.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-black mb-3 text-slate-900 flex items-center">
+                                    <span
+                                        class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs mr-4">B</span>
+                                    Interactive Robustness
+                                </h4>
+                                <p class="text-slate-500 pl-12">
+                                    키보드 집중에 최적화된 포커스 링 스타일과 명확한 탭 순서를 정의하여 마우스 없이도 모든 기능을 완벽하게 통제 가능합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal relative">
+                        <div class="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl overflow-hidden group">
+                            <div class="flex space-x-2 mb-6">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                            </div>
+                            <pre class="font-mono text-xs text-blue-400 space-y-1">
+<span class="text-slate-600 font-bold">// Skill Integration: @accessibility</span>
+{
+  "audit": "WCAG_2_1_AA",
+  "engine": "axe-core",
+  "autoFix": <span class="text-emerald-400">true</span>,
+  "lighthouse": {
+    "accessibility": <span class="text-emerald-400">100</span>,
+    "bestPractices": <span class="text-emerald-400">100</span>
+  }
+}
+                            </pre>
+                            <div class="mt-8 flex justify-center">
+                                <div
+                                    class="w-32 h-32 rounded-full border-4 border-dashed border-slate-700 flex items-center justify-center animate-[spin_10s_linear_infinite]">
+                                    <i data-lucide="refresh-cw" class="text-slate-700 w-12 h-12"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="absolute -bottom-6 -right-6 p-6 bg-white border border-slate-100 rounded-3xl shadow-xl reveal stagger-3">
+                            <span class="text-4xl font-black text-slate-900">100%</span>
+                            <span class="block text-[10px] font-bold text-slate-400 uppercase">Compliance Score</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Edge Deployment Section -->
+        <section id="deployment" class="section-padding bg-slate-900 text-white">
+            <div class="max-w-4xl mx-auto text-center reveal">
+                <i data-lucide="cpu" class="w-16 h-16 text-blue-500 mx-auto mb-10"></i>
+                <h2 class="heading-section mb-8">Edge-to-Client Delivery.</h2>
+                <p class="text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+                    에이전틱 엔지니어링을 통해 개선된 품질은 보안 SCP 프로토콜을 거쳐 실시간으로 사용자에게 제공됩니다. 수동 작업 없이 완벽한 정합성을 유지합니다.
+                </p>
+                <div
+                    class="inline-block px-8 py-5 rounded-2xl bg-white text-slate-900 font-black text-xl cta-button cursor-pointer">
+                    Explore Scaled Tech <i data-lucide="arrow-up-right" class="inline-block ml-2 w-5 h-5"></i>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-20 px-8 border-t border-slate-100">
+        <div
+            class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-slate-400">
+            <div class="flex items-center space-x-2">
+                <div class="w-5 h-5 bg-slate-200 rounded-sm"></div>
+                <span class="font-bold text-slate-600 tracking-tighter uppercase">TechByte Project</span>
+            </div>
+            <p class="text-xs">&copy; 2026. Automated with Antigravity Intelligence. All accessibility headers
+                validated.</p>
+            <div class="flex space-x-6">
+                <i data-lucide="github" class="w-5 h-5 cursor-pointer hover:text-slate-900"></i>
+                <i data-lucide="twitter" class="w-5 h-5 cursor-pointer hover:text-slate-900"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Reveal Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>
