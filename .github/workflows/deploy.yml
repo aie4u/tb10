@@ -1,0 +1,73 @@
+name: Deploy
+
+# 서버 인벤토리(docs/deployment.md) 확인 및 Secrets 등록 전까지는 수동 실행만 허용.
+# 확인 후 아래 push 트리거 주석을 해제한다.
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+      HEALTHCHECK_URL: ${{ vars.HEALTHCHECK_URL }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare release files
+        run: |
+          mkdir -p release
+          cp techbyte10.html release/
+          cp -r assets release/
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -p "$DEPLOY_PORT" "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+      - name: Backup current version on server
+        run: |
+          TS=$(date +%Y%m%d_%H%M%S)
+          ssh -i ~/.ssh/id_deploy -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" \
+            "mkdir -p ~/tb10-backups && cd '$DEPLOY_PATH' && \
+             tar czf ~/tb10-backups/techbyte10_${TS}.tar.gz techbyte10.html assets 2>/dev/null || true; \
+             ls -1t ~/tb10-backups/*.tar.gz 2>/dev/null | tail -n +11 | xargs -r rm -f"
+
+      # DocumentRoot에는 다른 페이지(/techbyte10/ 발표자료 등)가 함께 있으므로
+      # --delete는 assets/ 하위에만 적용하고, 루트에는 techbyte10.html만 덮어쓴다.
+      - name: Deploy
+        run: |
+          RSH="ssh -i ~/.ssh/id_deploy -p $DEPLOY_PORT"
+          rsync -avz --delete -e "$RSH" release/assets/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/assets/"
+          rsync -avz -e "$RSH" release/techbyte10.html "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/techbyte10.html"
+
+      - name: Health check
+        run: |
+          URL="${HEALTHCHECK_URL:-http://$DEPLOY_HOST/techbyte10.html}"
+          BASE="${URL%/*}"
+          for path in "$URL" "$BASE/assets/css/techbyte10.css" "$BASE/assets/js/techbyte10.js"; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "$path")
+            echo "$code $path"
+            [ "$code" = "200" ] || { echo "::error::Health check failed: $path"; exit 1; }
+          done
+          curl -s "$URL" | grep -q "Tech Byte 10" || { echo "::error::Page content check failed"; exit 1; }
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/id_deploy

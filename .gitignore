@@ -1,0 +1,11 @@
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+node_modules/
+release/
+*.log
+*.pem
+*_deploy
+*_deploy.pub
+.env
